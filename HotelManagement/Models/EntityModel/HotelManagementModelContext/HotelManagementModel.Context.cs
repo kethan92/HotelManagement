@@ -34,6 +34,7 @@ namespace HotelManagement.Models.EntityModel
         public virtual DbSet<Room_Bookings> Room_Bookings { get; set; }
         public virtual DbSet<Room_Status> Room_Status { get; set; }
         public virtual DbSet<Room_Type> Room_Type { get; set; }
-        
+        public virtual DbSet<User> Users { get; set; }
+
     }
 }

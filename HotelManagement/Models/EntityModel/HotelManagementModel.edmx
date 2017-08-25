@@ -62,6 +62,15 @@
           <Property Name="room_Type_Description" Type="nvarchar" MaxLength="50" />
           <Property Name="room_Standard_Rate" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="groupid" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <Association Name="FK_Booking_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
@@ -129,6 +138,7 @@
           <EntitySet Name="Room_Bookings" EntityType="Self.Room_Bookings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Room_Status" EntityType="Self.Room_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Room_Type" EntityType="Self.Room_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Booking_Customer" Association="Self.FK_Booking_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Booking" EntitySet="Booking" />
@@ -248,6 +258,7 @@
             <End Role="Room_Type" EntitySet="Room_Type" />
             <End Role="Room" EntitySet="Rooms" />
           </AssociationSet>
+          <EntitySet Name="Users" EntityType="RoomManagerModel.User" />
         </EntityContainer>
         <Association Name="FK_Booking_Customer">
           <End Type="RoomManagerModel.Customer" Role="Customer" Multiplicity="1" />
@@ -309,6 +320,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="groupid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -374,6 +394,16 @@
                 <ScalarProperty Name="room_Type_Code" ColumnName="room_Type_Code" />
                 <ScalarProperty Name="room_Type_Description" ColumnName="room_Type_Description" />
                 <ScalarProperty Name="room_Standard_Rate" ColumnName="room_Standard_Rate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="RoomManagerModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="groupid" ColumnName="groupid" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

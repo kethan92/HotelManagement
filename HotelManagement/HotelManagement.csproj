@@ -239,6 +239,7 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoomsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -257,6 +258,7 @@
     <Compile Include="Models\EntityModel\HotelManagementModelContext\Room_Bookings.cs" />
     <Compile Include="Models\EntityModel\HotelManagementModelContext\Room_Status.cs" />
     <Compile Include="Models\EntityModel\HotelManagementModelContext\Room_Type.cs" />
+    <Compile Include="Models\EntityModel\HotelManagementModelContext\User.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
