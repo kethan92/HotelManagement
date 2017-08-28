@@ -62,7 +62,7 @@
           <Property Name="room_Type_Description" Type="nvarchar" MaxLength="50" />
           <Property Name="room_Standard_Rate" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="User">
+        <EntityType Name="Users">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -131,6 +131,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_CheckLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="nvarchar" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="RoomManagerModelStoreContainer">
           <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
@@ -138,7 +142,7 @@
           <EntitySet Name="Room_Bookings" EntityType="Self.Room_Bookings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Room_Status" EntityType="Self.Room_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Room_Type" EntityType="Self.Room_Type" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Booking_Customer" Association="Self.FK_Booking_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Booking" EntitySet="Booking" />
@@ -259,6 +263,10 @@
             <End Role="Room" EntitySet="Rooms" />
           </AssociationSet>
           <EntitySet Name="Users" EntityType="RoomManagerModel.User" />
+          <FunctionImport Name="sp_CheckLogin" ReturnType="Collection(RoomManagerModel.sp_CheckLogin_Result)">
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <Association Name="FK_Booking_Customer">
           <End Type="RoomManagerModel.Customer" Role="Customer" Multiplicity="1" />
@@ -329,6 +337,12 @@
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="groupid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="sp_CheckLogin_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="username" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="password" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="groupid" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -399,7 +413,7 @@
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="RoomManagerModel.User">
-              <MappingFragment StoreEntitySet="User">
+              <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="groupid" ColumnName="groupid" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="username" ColumnName="username" />
@@ -407,6 +421,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_CheckLogin" FunctionName="RoomManagerModel.Store.sp_CheckLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RoomManagerModel.sp_CheckLogin_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="groupid" ColumnName="groupid" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

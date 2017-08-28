@@ -4,7 +4,7 @@
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myApp">
 
 <head>
 
@@ -22,19 +22,16 @@
     <!-- Custom CSS -->
     <link href="/Assets/Admin/css/shop-homepage.css" rel="stylesheet">
     <link href="/Assets/Admin/css/my.css" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <script src="~/Assets/Admin/AngularJs/angular.min.js"></script>
+    <script src="~/Assets/Admin/AngularJs/app.js"></script>
+    <script src="~/Assets/Admin/AngularJs/LoginController.js"></script>
+  
 
 </head>
 
 <body>
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" ng-controller="LoginController">
         <!-- slider -->
         <div class="row carousel-holder">
             <div class="col-md-4"></div>
@@ -42,18 +39,26 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Đăng nhập</div>
                     <div class="panel-body">
-                        <form>
+                        <form name="form" novalidate>
                             <div>
                                 <label>Username</label>
-                                <input type="email" class="form-control" placeholder="Email" name="email">
+                                <input type="email" class="form-control" placeholder="Username" name="username"
+                                       ng-model="username" required ng-minlength="6" ng-maxlength="18">
+                                <span class="alert-danger" ng-show="form.username.$error.required">Username is not required</span>
+                                <span class="alert-danger" ng-show="form.username.$error.minlenght">Username không nhỏ hơn 6 ký tự</span>
+                                <span class="alert-danger" ng-show="form.username.$error.maxlength">Username không vượt quá 18 ký tự</span>
                             </div>
                             <br>
                             <div>
                                 <label>Mật khẩu</label>
-                                <input type="password" class="form-control" name="password">
+                                <input type="password" class="form-control" name="password" ng-model="password"
+                                        required ng-minlength="6" ng-maxlength="18">
+                                <span class="alert-danger" ng-show="form.password.$error.required">Password is not required</span>
+                                <span class="alert-danger" ng-show="form.password.$error.minlenght">Mật khẩu không nhỏ hơn 6 ký tự</span>
+                                <span class="alert-danger" ng-show="form.password.$error.maxlength">Mật khẩu không vượt quá 18 ký tự</span>
                             </div>
                             <br>
-                            <button type="button" class="btn btn-default">
+                            <button type="button" class="btn btn-default"  ng-click="DangNhap()">
                                 Đăng nhập
                             </button>
                         </form>

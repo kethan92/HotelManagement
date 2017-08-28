@@ -1,0 +1,85 @@
+﻿
+@{
+    //  Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Laravel Khoa Pham</title>
+
+    <!-- Bootstrap Core CSS -->
+
+    <link src="~/Assets/Admin/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link src="~/Assets/Admin/css/shop-homepage.css" rel="stylesheet">
+    <link src="~/Assets/Admin/css/my.css" rel="stylesheet">
+
+    
+
+</head>
+
+<body>
+    <!-- Navigation -->
+   
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- slider -->
+        <div class="row carousel-holder">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Đăng nhập</div>
+                    <div class="panel-body">
+                        <form>
+                            <div>
+                                <label>Email</label>
+                                <input type="email" class="form-control" placeholder="Email" name="email">
+                            </div>
+                            <br>
+                            <div>
+                                <label>Mật khẩu</label>
+                                <input type="password" class="form-control" name="password">
+                            </div>
+                            <br>
+                            <button type="button" class="btn btn-default">
+                                Đăng nhập
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <!-- end slide -->
+    </div>
+    <!-- end Page Content -->
+    <!-- end Page Content -->
+    <!-- end Footer -->
+    <!-- jQuery -->
+    <script src="~/Assets/Admin/js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Assets/Admin/js/bootstrap.min.js"></script>
+    <script src="~/Assets/Admin/js/my.js"></script>
+
+</body>
+
+</html>
