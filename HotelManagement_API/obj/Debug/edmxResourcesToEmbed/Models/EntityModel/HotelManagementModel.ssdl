@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RoomManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Booking">
+    <Key>
+      <PropertyRef Name="Booking_ID" />
+    </Key>
+    <Property Name="Booking_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="date_From" Type="datetime" />
+    <Property Name="date_To" Type="datetime" />
+    <Property Name="Customer_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="idCustomer" />
+    </Key>
+    <Property Name="idCustomer" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="address" Type="nvarchar" MaxLength="50" />
+    <Property Name="numberCustomer" Type="int" />
+    <Property Name="numberRoom" Type="int" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="50" />
+    <Property Name="phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="mail" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="RoomNumber" />
+    </Key>
+    <Property Name="RoomNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="nameRoom" Type="nvarchar" MaxLength="50" />
+    <Property Name="RoomStatus_id" Type="nvarchar" MaxLength="50" />
+    <Property Name="RoomType_id" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Room_Bookings">
+    <Key>
+      <PropertyRef Name="idBooking" />
+      <PropertyRef Name="Room_id" />
+    </Key>
+    <Property Name="date_booking_from" Type="datetime" />
+    <Property Name="date_booking_to" Type="datetime" />
+    <Property Name="room_cout" Type="int" />
+    <Property Name="idBooking" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Room_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Room_Status">
+    <Key>
+      <PropertyRef Name="id_RoomStatus" />
+    </Key>
+    <Property Name="id_RoomStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="status" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Room_Type">
+    <Key>
+      <PropertyRef Name="room_Type_Code" />
+    </Key>
+    <Property Name="room_Type_Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="room_Type_Description" Type="nvarchar" MaxLength="50" />
+    <Property Name="room_Standard_Rate" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="username" Type="nvarchar" MaxLength="50" />
+    <Property Name="password" Type="nvarchar" MaxLength="50" />
+    <Property Name="groupid" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Booking_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="idCustomer" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="Customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Room_Bookings_Booking">
+    <End Role="Booking" Type="Self.Booking" Multiplicity="1" />
+    <End Role="Room_Bookings" Type="Self.Room_Bookings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Booking">
+        <PropertyRef Name="Booking_ID" />
+      </Principal>
+      <Dependent Role="Room_Bookings">
+        <PropertyRef Name="idBooking" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Room_Bookings_Room">
+    <End Role="Room" Type="Self.Room" Multiplicity="1" />
+    <End Role="Room_Bookings" Type="Self.Room_Bookings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="RoomNumber" />
+      </Principal>
+      <Dependent Role="Room_Bookings">
+        <PropertyRef Name="Room_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Room_Room_Status">
+    <End Role="Room_Status" Type="Self.Room_Status" Multiplicity="0..1" />
+    <End Role="Room" Type="Self.Room" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room_Status">
+        <PropertyRef Name="id_RoomStatus" />
+      </Principal>
+      <Dependent Role="Room">
+        <PropertyRef Name="RoomStatus_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Room_Room_Type">
+    <End Role="Room_Type" Type="Self.Room_Type" Multiplicity="0..1" />
+    <End Role="Room" Type="Self.Room" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room_Type">
+        <PropertyRef Name="room_Type_Code" />
+      </Principal>
+      <Dependent Role="Room">
+        <PropertyRef Name="RoomType_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="sp_CheckLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="nvarchar" Mode="In" />
+    <Parameter Name="password" Type="nvarchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="RoomManagerModelStoreContainer">
+    <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Room_Bookings" EntityType="Self.Room_Bookings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Room_Status" EntityType="Self.Room_Status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Room_Type" EntityType="Self.Room_Type" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Booking_Customer" Association="Self.FK_Booking_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Booking" EntitySet="Booking" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Room_Bookings_Booking" Association="Self.FK_Room_Bookings_Booking">
+      <End Role="Booking" EntitySet="Booking" />
+      <End Role="Room_Bookings" EntitySet="Room_Bookings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Room_Bookings_Room" Association="Self.FK_Room_Bookings_Room">
+      <End Role="Room" EntitySet="Room" />
+      <End Role="Room_Bookings" EntitySet="Room_Bookings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Room_Room_Status" Association="Self.FK_Room_Room_Status">
+      <End Role="Room_Status" EntitySet="Room_Status" />
+      <End Role="Room" EntitySet="Room" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Room_Room_Type" Association="Self.FK_Room_Room_Type">
+      <End Role="Room_Type" EntitySet="Room_Type" />
+      <End Role="Room" EntitySet="Room" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

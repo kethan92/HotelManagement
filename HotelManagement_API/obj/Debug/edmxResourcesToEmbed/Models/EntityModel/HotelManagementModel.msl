@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RoomManagerModelStoreContainer" CdmEntityContainer="RoomManagerEntities">
+    <EntitySetMapping Name="Bookings">
+      <EntityTypeMapping TypeName="RoomManagerModel.Booking">
+        <MappingFragment StoreEntitySet="Booking">
+          <ScalarProperty Name="Booking_ID" ColumnName="Booking_ID" />
+          <ScalarProperty Name="date_From" ColumnName="date_From" />
+          <ScalarProperty Name="date_To" ColumnName="date_To" />
+          <ScalarProperty Name="Customer_id" ColumnName="Customer_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="RoomManagerModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="idCustomer" ColumnName="idCustomer" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="numberCustomer" ColumnName="numberCustomer" />
+          <ScalarProperty Name="numberRoom" ColumnName="numberRoom" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="mail" ColumnName="mail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rooms">
+      <EntityTypeMapping TypeName="RoomManagerModel.Room">
+        <MappingFragment StoreEntitySet="Room">
+          <ScalarProperty Name="RoomNumber" ColumnName="RoomNumber" />
+          <ScalarProperty Name="nameRoom" ColumnName="nameRoom" />
+          <ScalarProperty Name="RoomStatus_id" ColumnName="RoomStatus_id" />
+          <ScalarProperty Name="RoomType_id" ColumnName="RoomType_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Room_Bookings">
+      <EntityTypeMapping TypeName="RoomManagerModel.Room_Bookings">
+        <MappingFragment StoreEntitySet="Room_Bookings">
+          <ScalarProperty Name="date_booking_from" ColumnName="date_booking_from" />
+          <ScalarProperty Name="date_booking_to" ColumnName="date_booking_to" />
+          <ScalarProperty Name="room_cout" ColumnName="room_cout" />
+          <ScalarProperty Name="idBooking" ColumnName="idBooking" />
+          <ScalarProperty Name="Room_id" ColumnName="Room_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Room_Status">
+      <EntityTypeMapping TypeName="RoomManagerModel.Room_Status">
+        <MappingFragment StoreEntitySet="Room_Status">
+          <ScalarProperty Name="id_RoomStatus" ColumnName="id_RoomStatus" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Room_Type">
+      <EntityTypeMapping TypeName="RoomManagerModel.Room_Type">
+        <MappingFragment StoreEntitySet="Room_Type">
+          <ScalarProperty Name="room_Type_Code" ColumnName="room_Type_Code" />
+          <ScalarProperty Name="room_Type_Description" ColumnName="room_Type_Description" />
+          <ScalarProperty Name="room_Standard_Rate" ColumnName="room_Standard_Rate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="RoomManagerModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="groupid" ColumnName="groupid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_CheckLogin" FunctionName="RoomManagerModel.Store.sp_CheckLogin">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RoomManagerModel.sp_CheckLogin_Result">
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="groupid" ColumnName="groupid" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>
