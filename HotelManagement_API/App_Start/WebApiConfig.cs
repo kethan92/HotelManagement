@@ -19,6 +19,11 @@ namespace HotelManagement_API
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            config.Routes.MapHttpRoute(
+           name: "moduleId",
+           routeTemplate: "api/{controller}/{action}/{moduleId}",
+           defaults: new { moduleId = RouteParameter.Optional }
+           );
             // configu file json
             config.Formatters.Remove(config.Formatters.XmlFormatter);
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new 

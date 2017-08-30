@@ -1,4 +1,4 @@
-﻿@model HotelManager_MVC.Models.User
+﻿@model HotelManager_MVC.Models.LoginUser
 @{
     Layout = null;
 }
@@ -46,6 +46,7 @@
                         {
                             @Html.AntiForgeryToken()
                             <div>
+                                @Html.ValidationSummary(false, "", new { @class="text-danger"})
                                 <label>Username</label>
                                 @Html.TextBoxFor(model => model.username, new { @class = "form-control", @autofocus = "autofocus", placeholder = "Username" })
                             </div>
@@ -55,7 +56,7 @@
                                     @Html.TextBoxFor(model => model.password, new { @class = "form-control", @autofocus = "autofocus" })
                                 </div>
                                 <br>
-                                <button type="button" class="btn btn-default">
+                                <button type="submit" class="btn btn-default">
                                     Đăng nhập
                                 </button>
 

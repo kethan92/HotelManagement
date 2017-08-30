@@ -16,29 +16,29 @@ namespace HotelManagement_API.Controllers
         {
             return db.Users;
         }
-        /*
-        public HttpRequestMessage checkLogin(string username,string password)
-        {
-            User user = db.Users.FirstOrDefault(x => x.username.Equals(username) & x.password.Equals(password));
-            if (user==null)
-            {
-                return NotFound();
-            }
-            return Ok(user);
-        }
-        */
+       
         // GET: api/Users/5
         [ResponseType(typeof(User))]
         [HttpGet]
         public IHttpActionResult UserLogin(string username, string password)
         {
-            User result = db.Users.FirstOrDefault(x => x.username.Equals(username) && x.password.Equals(password));
+            var result = db.Users.FirstOrDefault(x => x.username.Equals(username) && x.password.Equals(password));
             if (result == null)
             {
                 return NotFound();
             }
-            User _user = new User();
 
+
+            return Ok(result);
+        }
+        [HttpGet]
+        public IHttpActionResult getGroupID(int id)
+        {
+            var result = db.Users.Where(x => x.id == id).Select(x => x.groupid).ToList();
+            if(result==null)
+            {
+                return NotFound();
+            }
             return Ok(result);
         }
     }

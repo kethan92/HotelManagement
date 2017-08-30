@@ -7,30 +7,34 @@ using System.Web.Mvc;
 
 namespace HotelManager_MVC.Controllers
 {
+    [Authorize]
     public class LoginAdminController : Controller
     {
         // GET: LoginAdmin
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult Login(User user)
-        {
-
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Login(LoginUser user)
+        {         
             if (ModelState.IsValid)
             {
 
                 var result = new UserClient().checkUser(user);
 
-                if (result != null)
+                if (result !=null)
                 {
                     User _user = new HotelManager_MVC.Models.User();
+                    _user.id = result.id;
                     _user.username = result.username;
                     _user.password = result.password;
-                    _user.groupid = result.groupid;
-                    _user.id = result.id;
-                    // Session.Add(Areas.Client.Common.CommonConstants.ADMIN_SESSION, _user);
-
+                    _user.groupid = result.groupid;                    
+                    //
+                    Session.Add(HotelManager_MVC.Const.ValueConst.ADMIN_SESSION, _user);
+                    // trả về Action Index của controller HomeController
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -40,6 +44,7 @@ namespace HotelManager_MVC.Controllers
                 }
             }
             return View("Index");
+            
         }
     }
 }
